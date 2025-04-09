@@ -5,8 +5,10 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { ChevronDown, FileText, LayoutDashboard, Star, PenLine, GraduationCapIcon } from "lucide-react";  
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { checkUser } from "@/lib/checkuser";
 
-export const Header = () => {
+export const Header = async () => {
+    await checkUser();
     return(
         <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 h-16
         supports-[backdrop-filter]:bg-background/60">

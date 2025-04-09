@@ -5,7 +5,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { howItWorks } from "@/data/howItWorks";
 import { HoverAccordion } from "@/components/hover-accordion";
 import { faqs } from "@/data/faqs";
-
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -103,6 +105,29 @@ export default function Home() {
                 answer={faq.answer}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Ready to get started? */}
+      <section className="relative w-full py-12 md:py-20 overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-700 to-purple-800">
+        <div>
+          <div className="text-center max-w-3xl mx-auto space-y-8">
+            <h2 className="text-3xl md:text-1xl lg:text-6xl font-bold bg-gradient-to-r from-white via-gray-100 to-gray-300 text-transparent bg-clip-text">
+              Ready to Get Started?
+            </h2>
+            <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+              Transform your career journey today! Join thousands of professionals already growing with our AI-powered tools.
+            </p>
+            <Link href="/dashboard" passHref>
+              <Button
+                size="lg"
+                variant="secondary"
+                className="h-11 mt-5 animate-bounce"
+              >
+                Start Your Journey Today <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
