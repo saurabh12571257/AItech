@@ -1,5 +1,5 @@
 "use client"
-import { industries } from "@/data/industries";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { onboardingSchema } from "@/app/lib/schema";
@@ -11,11 +11,23 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import useFetch from "@/hooks/use-fetch";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import { updateUser } from "@/actions/user";
+import { Loader2 } from "lucide-react";
+
 
 const OnboardingForm = ({industries}) => {
 
     const [selectedIndustry, setSelectedIndustry] = useState(null);
     const router = useRouter();
+
+    const{
+        fn: updateUserFn,
+        loading: updateLoading,
+        data: updateResult,
+    } = useFetch(updateUser);
 
     const {
         register, 
@@ -27,9 +39,29 @@ const OnboardingForm = ({industries}) => {
         resolver: zodResolver(onboardingSchema)
     })
 
-    const onSubmit = (values) => {
-        console.log(values);
-    }
+    const onSubmit = async (values) => {
+        try {
+            const formattedIndustry = `${values.industry}-${values.subIndustry
+                .toLowerCase()
+                .replace(/ /g, "-")}`;
+
+            await updateUserFn({
+                ...values,
+                industry: formattedIndustry,
+            });
+        } catch (error) {
+            toast.error(error.message || "Something went wrong");
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        if(updateResult?.success && !updateLoading){
+            toast.success("Profile updated successfully");
+            router.push("/dashboard");
+            router.refresh();
+        }
+    }, [updateResult, updateLoading]);
 
     const watchIndustry = watch("industry");
     
@@ -152,16 +184,19 @@ const OnboardingForm = ({industries}) => {
                             )}
                         </div>
 
-                        <Button type="submit" className="w-full">
-                            Continue
+                        <Button type="submit" className="w-full" disabled={updateLoading}>
+                            {updateLoading ? (
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            ) : (
+                                "Continue"
+                            )}
                         </Button>
 
                     </form>
                 </CardContent>
             </Card>
-
         </div>
     )
 }
     
-export default OnboardingForm
+export default OnboardingForm;
