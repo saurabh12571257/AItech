@@ -8,7 +8,7 @@ import { BarChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsiv
 
 const DashboardView = ({insights}) => {
 
-    const salaryData = insights.salaryRanges.map((range) => ({
+    const salaryData = insights.salaryRanges.map((range) => ({ 
         name : range.role,
         min: range.min/1000,
         max: range.max/1000,
@@ -117,26 +117,38 @@ const DashboardView = ({insights}) => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="h-[400px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart
-                            data={salaryData}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            <Bar dataKey="min" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
-                            <Bar dataKey="max" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-                            <Bar dataKey="median" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                    </div>
+                <div className="h-[400px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={salaryData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" stroke="white" />
+                <YAxis />
+                <Tooltip
+                  content={({ active, payload, label }) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="bg-background border rounded-lg p-2 shadow-md">
+                          <p className="font-medium">{label}</p>
+                          {payload.map((item) => (
+                            <p key={item.name} className="text-sm">
+                              {item.name}: ${item.value}K
+                            </p>
+                          ))}
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Bar dataKey="min" fill="#94a3b8" name="Min Salary (K)" />
+                <Bar dataKey="median" fill="#64748b" name="Median Salary (K)" />
+                <Bar dataKey="max" fill="#475569" name="Max Salary (K)" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
                 </CardContent>
             </Card>
-            
         </div>
-        
     )
 };
 
