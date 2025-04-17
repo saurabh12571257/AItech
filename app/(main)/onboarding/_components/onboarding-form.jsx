@@ -58,13 +58,14 @@ const OnboardingForm = ({industries}) => {
     useEffect(() => {
         if(updateResult?.success && !updateLoading){
             toast.success("Profile updated successfully");
-            router.push("/dashboard");
+            router.replace("/dashboard");
             router.refresh();
         }
     }, [updateResult, updateLoading]);
 
     const watchIndustry = watch("industry");
     
+
     return (
         <div className="flex items-center justify-center bg-background">
             <Card className="w-full max-w-lg mt-10 mx-2">
