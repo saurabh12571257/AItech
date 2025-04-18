@@ -53,3 +53,34 @@ export async function generateQuiz(){
    }
 }
 
+export async function saveQuizResult(questions, answers, score) {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Unauthorized");
+  
+    const user = await db.user.findUnique({
+      where: { clerkUserId: userId },
+    });
+  
+    if (!user) throw new Error("User not found");
+  
+    const questionResults = questions.map((q, index) => ({
+      question: q.question,
+      answer: q.correctAnswer,
+      userAnswer: answers[index],
+      isCorrect: q.correctAnswer === answers[index],
+      explanation: q.explanation,
+    }));
+
+    const wrongAnswers = questionResults.filter((q) => !q.isCorrect);
+
+    let improvementTip = null;
+
+    if (wrongAnswers.length > 0) {
+      const wrongQuestionsText = wrongAnswers
+        .map(
+          (q) =>
+            `Question: "${q.question}"\nCorrect Answer: "${q.answer}"\nUser Answer: "${q.userAnswer}"`
+        )
+        .join("\n\n");
+    }
+} 
