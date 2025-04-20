@@ -16,15 +16,17 @@ const MockInterviewPage = () => {
            </Button>
          </Link>
 
-         <div>
-          <h1 className="text-6xl font-bold gradient-title"> Mock </h1>
-          <p className='text-muted-foreground'>
-            Test your knowledge with indistry-specific questions.
-          </p>
-         </div>
+        <div className='pb-3'>
+            <h1 className="text-6xl font-bold gradient-title">
+               Mock 
+            </h1>
+            <p className='text-muted-foreground'>
+              Test your knowledge with indistry-specific questions.
+            </p>
         </div>
-        <Quiz />
       </div>
+        <Quiz />
+    </div>
   );
 };
 
