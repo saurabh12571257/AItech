@@ -4,7 +4,9 @@ import { generateQuiz } from "@/actions/interview";
 import useFetch from "@/hooks/use-fetch";
 import { Card, CardFooter, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import { BarLoader } from "react-spinners";
+import { Label } from "@/components/ui/label";
 
 
 const Quiz = () => {
@@ -43,7 +45,7 @@ const Quiz = () => {
                     </p>
                 </CardContent>
                 <CardFooter>
-                    <Button className="w-full">
+                    <Button onClick={generateQuizFn} className="w-full">
                         Start Quiz
                     </Button>
                 </CardFooter>
@@ -64,6 +66,17 @@ const Quiz = () => {
                     <p className="text-lg font-medium">
                         {question.question}
                     </p>
+                    <RadioGroup className="space-y-2">
+                       
+                        {question.options.map((option, index) => {
+                             return (
+                        <div className="flex items-center space-x-2" key = {index}>
+                        <RadioGroupItem value={option} id={`option-${index}`} />
+                        <Label htmlFor={`option-${index}`}>{option}</Label>
+                    </div>
+                        );
+                        })}
+                    </RadioGroup>
                 </CardContent>
                 <CardFooter>
 
