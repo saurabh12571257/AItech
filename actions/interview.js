@@ -115,7 +115,7 @@ export async function saveQuizResult(questions, answers, score) {
         });
 
         return {
-            score,
+            quizScore: score,
             questions: questionResults,
             improvementTip,
             assessmentId: assessment.id

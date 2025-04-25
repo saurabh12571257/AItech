@@ -9,6 +9,7 @@ import { BarLoader } from "react-spinners";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner"
+import QuizResult from "./quiz-result";
 
 const Quiz = () => {
 
@@ -29,7 +30,13 @@ const Quiz = () => {
         setData: setResultData,
     } = useFetch(saveQuizResult);
 
-    console.log(resultData);
+    const startNewQuiz = () => {
+        setCurrentQuestion(0);
+        setAnswers([]);
+        setShowExplanation(false);
+        setResultData(null);
+        generateQuizFn();
+    };
 
     useEffect(() => {
         if (quizData) {
@@ -79,14 +86,14 @@ const Quiz = () => {
         return <BarLoader className="mt-4" width={"100%"} color="gray" />;
     }
 
-    // if (resultData) {
-    //     console.log('Rendering quiz result with data:', resultData);
-    //     return (
-    //       <div className="mx-2">
-    //         <QuizResult result={resultData} onStartNew={startNewQuiz} />
-    //       </div>
-    //     );
-    // }
+    if (resultData) {
+        console.log('Rendering quiz result with data:', resultData);
+        return (
+          <div className="mx-2">
+            <QuizResult result={resultData} onStartNew={startNewQuiz} />
+          </div>
+        );
+    }
     
 
     if(!quizData){
