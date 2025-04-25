@@ -21,12 +21,12 @@ const QuizList = ({assessments}) => {
   return(
   <>
     <Card className="mt-4">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <div>
           <CardTitle className="gradient-title text-3xl md:text-4xl">
             Recent Quizzes
           </CardTitle>
-          <CardDescription className="mb-2">
+          <CardDescription>
             Review your past quiz performance.
           </CardDescription>
         </div>
@@ -35,9 +35,26 @@ const QuizList = ({assessments}) => {
         </Button>
       </CardHeader>
       <CardContent>
-        <p> 
-            Card Content 
-        </p>
+        <div className='space-y-4'>
+            {assessments.map((assessments, i) => {
+                return (
+                    <Card>
+                        <CardHeader>
+                            <CardTitle> Quiz : {i+1} </CardTitle>
+                            <CardDescription>
+                                <div>
+                                    Score : {assessments.quizScore.toFixed(1)}
+                                    %
+                                </div>
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="text-sm text-muted-foreground">
+                            {assessments.improvementTip}
+                        </CardContent>
+                    </Card>
+                );
+            })}
+        </div>
       </CardContent>
     </Card>
   </>
