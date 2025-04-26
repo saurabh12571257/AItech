@@ -41,18 +41,18 @@ export const Header = async () => {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                                <DropdownMenuItem>
+                                {/* <DropdownMenuItem>
                                     <Link href="/resume" className="flex items-center gap-2">
                                         <FileText className="w-4 h-4"/>
                                         <span>Build Resume</span>
                                     </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                </DropdownMenuItem> */}
+                                {/* <DropdownMenuItem>
                                     <Link href="/ai-cover-letter" className="flex items-center gap-2">
                                         <PenLine className="w-4 h-4"/>
                                         <span>Coverletter</span>
                                     </Link>
-                                </DropdownMenuItem>
+                                </DropdownMenuItem> */}
                                 <DropdownMenuItem>
                                     <Link href="/interview" className="flex items-center gap-2">
                                         <GraduationCapIcon className="w-4 h-4"/>

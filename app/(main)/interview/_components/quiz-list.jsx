@@ -11,6 +11,17 @@ import {
     CardTitle,
   } from "@/components/ui/card"
 import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    Alert
+  } from "@/components/ui/dialog"
+import QuizResult from './quiz-result';
+  
 
 
 const QuizList = ({assessments}) => {
@@ -38,7 +49,11 @@ const QuizList = ({assessments}) => {
         <div className='space-y-4'>
             {assessments.map((assessments, i) => {
                 return (
-                    <Card>
+                    <Card 
+                    key = {assessments.id}
+                    className="cursor-pointer hover:bg-muted/50 transition-colors"
+                    onClick={() => setSelectedQuiz(assessments)}
+                    >
                         <CardHeader>
                             <CardTitle> Quiz : {i+1} </CardTitle>
                             <CardDescription>
@@ -57,7 +72,22 @@ const QuizList = ({assessments}) => {
         </div>
       </CardContent>
     </Card>
-  </>
+
+    <Dialog open={!!selectQuiz} onOpenChange={() => setSelectedQuiz(null)}>
+      <DialogTrigger>Open</DialogTrigger>
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle></DialogTitle>
+        </DialogHeader>
+        <QuizResult
+            result={selectQuiz}
+            onStartNew={() => router.push("/interview/mock")}
+            hideStartNew
+        />
+      </DialogContent>
+    </Dialog>
+
+    </>
 
 )};
 

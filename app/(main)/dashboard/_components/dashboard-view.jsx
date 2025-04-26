@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { Progress } from '@/components/ui/progress';
 import { BarChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Rectangle, Bar } from 'recharts';
 
+
 const DashboardView = ({insights}) => {
 
     const salaryData = insights.salaryRanges.map((range) => ({ 
@@ -55,7 +56,7 @@ const DashboardView = ({insights}) => {
                     <CardTitle className="text-sm font-medium">
                         Market Outlook
                     </CardTitle>
-                    <OutlookIcon className={`h-4 w-4 ${OutlookColor}`} />
+                    <OutlookIcon className={`h-4 w-4 ${OutlookColor}` } />
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{insights.marketOutlook}</div>
@@ -68,7 +69,7 @@ const DashboardView = ({insights}) => {
                     <CardTitle className="text-sm font-medium">
                     Industry Growth
                     </CardTitle>
-                    <OutlookIcon className={`h-4 w-4 ${OutlookColor}`} />
+                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{insights.growthRate.toFixed(1)} %</div>
